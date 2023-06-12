@@ -1,20 +1,9 @@
-// const express = require('express')
-// const app = express()
-// const port = 3001
-
-// app.get('/', (req, res) => {
-//   res.status(200).send('Hello World!');
-// })
-
-// app.listen(port, () => {
-//   console.log(`App running on port ${port}.`)
-// })
 
 const express = require('express')
 const app = express()
 const port = 3001
-
 const spatable_model = require('./spatable_model')
+
 
 app.use(express.json())
 app.use(function (req, res, next) {
@@ -24,10 +13,13 @@ app.use(function (req, res, next) {
   next();
 });
 
+
+
 app.get('/', (req, res) => {
   spatable_model.getSpatable()
   .then(response => {
-    res.status(200).send(response);
+    // res.json({table: response});
+    res.json(response);
   })
   .catch(error => {
     res.status(500).send(error);
@@ -37,4 +29,29 @@ app.get('/', (req, res) => {
 
 app.listen(port, () => {
   console.log(`App running on port ${port}.`)
-})
+});
+
+// const express = require('express')
+// const Pool = require('pg').Pool
+// const app = express()
+// const port = 3001
+
+// const pool = new Pool({
+//   user: 'postgres',
+//   host: 'localhost',
+//   database: 'postgres',
+//   password: '1qasdfghj',
+//   port: 5432,
+// });
+
+
+// pool.connect();
+
+// app.get('/', async (req, res) => {
+//   const {rows}  = await  pool.query('SELECT * FROM Spatable ORDER BY distance ASC',
+//   res.send(ok))
+// })
+
+// app.listen(port, () => {
+//   console.log(`Example app listening on port ${port}`)
+// })
